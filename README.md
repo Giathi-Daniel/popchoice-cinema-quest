@@ -1,2 +1,3 @@
 # PopChoice Movie Recommender
-[preview](/public/popchoice.png)
+![preview](/popchoice.png)
+
