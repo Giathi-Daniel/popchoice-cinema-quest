@@ -1,11 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { saveMovieResponse } from "@/lib/storage";
 import { Popcorn, User } from "lucide-react";
 
 const Questionnaire = () => {
@@ -22,17 +23,14 @@ const Questionnaire = () => {
   const [movieMood, setMovieMood] = useState("");
 
   const handleNext = () => {
-    // Store responses in localStorage (in real app, this would go to your vector database)
-    const responses = JSON.parse(localStorage.getItem("movieResponses") || "[]");
-    responses.push({
+    saveMovieResponse({
       person: currentPerson,
       favoriteMovie,
       favoriteReason,
       movieAge,
       movieMood,
-      timeAvailable
+      timeAvailable,
     });
-    localStorage.setItem("movieResponses", JSON.stringify(responses));
 
     if (currentPerson < groupSize) {
       // Go to next person
